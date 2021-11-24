@@ -1,11 +1,7 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 import * as THREE from "three";
-import {GUI} from "dat.gui";
 import {CubeParametrsService} from "../../share/cube-parametrs.service";
 import {CubeSettings} from "../../model/cubeSettings";
-import {Scene} from "three";
-import {parse} from "@angular/compiler/src/render3/view/style_parser";
-
 
 @Component({
   selector: 'app-cube',
@@ -40,9 +36,6 @@ export class CubeComponent implements OnInit, AfterViewInit {
 
   selectedCubeSettings: CubeSettings | undefined;
 
-
-  //? Helper Properties (Private Properties);
-
   private camera!: THREE.PerspectiveCamera;
 
   private get canvas(): HTMLCanvasElement {
@@ -59,17 +52,47 @@ export class CubeComponent implements OnInit, AfterViewInit {
 
   private scene!: THREE.Scene;
 
+  cubeSettings: CubeSettings = {rotationSpeedX: this.rotationSpeedX, rotationSpeedY: this.rotationSpeedY};
 
   constructor(private cubeParametrsService: CubeParametrsService) {
-
   }
 
+  ngOnInit(): void {
+    this.cubeParametrsService.currentSettings.subscribe(value => {
+      this.rotationSpeedX = value.rotationSpeedX;
+      this.rotationSpeedY = value.rotationSpeedY;
+      this.cubeSettings = value;
+    });
+  }
+
+  ngAfterViewInit() {
+    this.createScene();
+    this.startRenderingLoop();
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleShiftPlusEvent(event: KeyboardEvent) {
+    switch (event.key) {
+      case '+':
+        this.cubeSettings.rotationSpeedX = +(this.rotationSpeedX + 0.01).toFixed(2);
+        break;
+      case '_':
+        this.cubeSettings.rotationSpeedX = +(this.rotationSpeedX - 0.01).toFixed(2);
+        break;
+      case')':
+        this.cubeSettings.rotationSpeedY = +(this.rotationSpeedY + 0.01).toFixed(2);
+        break;
+      case'(':
+        this.cubeSettings.rotationSpeedY = +(this.rotationSpeedY - 0.01).toFixed(2);
+        break;
+    }
+    this.cubeParametrsService.changeSettings(this.cubeSettings);
+  }
 
   private animateCube() {
     this.cube.rotation.x += this.rotationSpeedX;
     this.cube.rotation.y += this.rotationSpeedY;
   }
-
 
   private createScene() {
     //* Scene
@@ -107,15 +130,4 @@ export class CubeComponent implements OnInit, AfterViewInit {
   }
 
 
-  ngOnInit(): void {
-    this.cubeParametrsService.currentSettings.subscribe(value => {
-      this.rotationSpeedX = value.rotationSpeedX;
-      this.rotationSpeedY = value.rotationSpeedY;
-    });
-  }
-
-  ngAfterViewInit() {
-    this.createScene();
-    this.startRenderingLoop();
-  }
 }

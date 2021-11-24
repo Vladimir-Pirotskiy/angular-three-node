@@ -29,3 +29,13 @@ in /test-app folder
 ng serve
 ```
 
+##To change the Rotation speed use: 
+
+Z-Speed+:
+```shfit+```
+Z-Speed-:
+```shift_```
+Y-Speed+:
+```shift)```
+Y-Speed-:
+```shift(```

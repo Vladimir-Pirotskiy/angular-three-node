@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require("body-parser");
 const mongodb = require("mongodb");
-const ObjectID = mongodb.ObjectID;
 let database;
 const DB_CUBE_STATE = "state";
 const app = express();

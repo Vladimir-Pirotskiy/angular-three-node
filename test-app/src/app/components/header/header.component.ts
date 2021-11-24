@@ -2,9 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {CubeParametrsService} from "../../share/cube-parametrs.service";
 import {CubeSettings} from "../../model/cubeSettings";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Scene} from "three";
-
 
 @Component({
   selector: 'app-header',

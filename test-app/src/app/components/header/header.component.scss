@@ -72,7 +72,7 @@ nav a::before {
 
   position: absolute;
   top: 0;
-  width: 0%;
+  width: 0;
 
   transition: all ease-in-out 250ms;
 }
@@ -262,8 +262,8 @@ nav a:hover::before {
 .custom-field.three .border::before {
   left: 0;
   bottom: 0;
-  border-right: 0px solid var(--draw-color);
-  border-bottom: 0px solid var(--draw-color);
+  border-right: 0 solid var(--draw-color);
+  border-bottom: 0 solid var(--draw-color);
   transition:
     border 0s linear calc(var(--draw-duration) * 4),
     height var(--draw-duration) var(--draw-easing) calc(var(--draw-duration) * 2),
@@ -273,8 +273,8 @@ nav a:hover::before {
 .custom-field.three .border::after {
   right: 0;
   top: 0;
-  border-left: 0px solid var(--draw-color);
-  border-top: 0px solid var(--draw-color);
+  border-left: 0 solid var(--draw-color);
+  border-top: 0 solid var(--draw-color);
   transition:
     border 0s linear calc(var(--draw-duration) * 2),
     height var(--draw-duration) var(--draw-easing),
