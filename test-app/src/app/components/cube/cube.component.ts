@@ -128,6 +128,4 @@ export class CubeComponent implements OnInit, AfterViewInit {
       component.renderer.render(component.scene, component.camera);
     }());
   }
-
-
 }
