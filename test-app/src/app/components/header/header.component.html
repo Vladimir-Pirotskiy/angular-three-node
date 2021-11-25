@@ -1,28 +1,34 @@
 <header>
-  <div class="container">
-    <h3 class="logo">ANGULAR THREE.JS</h3>
+  <div class="navigation-container">
+    <div class="logo-container"><img src="/assets/img_1.png" alt="logo"></div>
+    <div class="button-bar">
+      <button (click)="onSaveState()">Save</button>
+      <button (click)="onLoadState()">Load</button>
+    </div>
 
-    <nav>
-      <ul>
-        <li><a (click)="onSaveState()">Save State</a> </li>
-        <li><a (click)="onLoadState()">Load State</a> </li>
-      </ul>
-    </nav>
-  </div>
 
-  <div class="settings-container">
+<div class="input-container">
 
-    <label class="custom-field three">
-      <input type="number" placeholder="&nbsp;" [(ngModel)]="cubeSettings.rotationSpeedX" (blur)="upDate()" (keydown)="upDate()"/>
-      <span class="placeholder">Enter Rotation Speed-X</span>
-      <span class="border"></span>
-    </label>
 
-    <label class="custom-field three">
-      <input type="number" placeholder="&nbsp;" [(ngModel)]="cubeSettings.rotationSpeedY" (blur)="upDate()" (keydown)="upDate()"/>
-      <span class="placeholder">Enter Rotation Speed-Y</span>
-      <span class="border"></span>
-    </label>
+
+
+    <mat-form-field appearance="fill">
+      <mat-label>Rotation Speed-X</mat-label>
+      <input matInput type="number" [(ngModel)]="cubeSettings.rotationSpeedX" (blur)="upDate()" (keydown)="upDate()">
+      <button *ngIf="cubeSettings.rotationSpeedX" matSuffix mat-icon-button aria-label="Clear" (click)="cubeSettings.rotationSpeedX=0">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Rotation Speed-Y</mat-label>
+      <input matInput type="number" [(ngModel)]="cubeSettings.rotationSpeedY" (blur)="upDate()" (keydown)="upDate()">
+      <button *ngIf="cubeSettings.rotationSpeedY" matSuffix mat-icon-button aria-label="Clear" (click)="cubeSettings.rotationSpeedY=0">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+</div>
 
   </div>
 </header>
