@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 import {CubeSettings} from "../../model/cubeSettings";
 import * as THREE from "three";
 import {CubeParametrsService} from "../../share/cube-parametrs.service";
@@ -9,16 +9,12 @@ import {Objects} from "../../share/objects";
   templateUrl: './scene.component.html',
   styleUrls: ['./scene.component.scss']
 })
-export class SceneComponent implements OnInit {
+export class SceneComponent implements OnInit, AfterViewInit {
 
   @ViewChild('canvas')
   private canvasRef!: ElementRef;
 
   //* Cube Properties
-
-  @Input() public rotationSpeedX: number = 0;
-
-  @Input() public rotationSpeedY: number = 0;
 
   @Input() public size: number = 200;
 
@@ -44,17 +40,10 @@ export class SceneComponent implements OnInit {
 
   private scene!: THREE.Scene;
 
-  cubeSettings: CubeSettings = {rotationSpeedX: this.rotationSpeedX, rotationSpeedY: this.rotationSpeedY};
-
   constructor(private cubeParametrsService: CubeParametrsService, private objects: Objects) {
   }
 
   ngOnInit(): void {
-    this.cubeParametrsService.currentSettings.subscribe(value => {
-      this.rotationSpeedX = value.rotationSpeedX;
-      this.rotationSpeedY = value.rotationSpeedY;
-      this.cubeSettings = value;
-    });
   }
 
   ngAfterViewInit() {
@@ -63,27 +52,26 @@ export class SceneComponent implements OnInit {
   }
 
   @HostListener('document:keydown', ['$event'])
-  handleShiftPlusEvent(event: KeyboardEvent) {
+  handleShiftEvent(event: KeyboardEvent) {
     switch (event.key) {
       case '+':
-        this.cubeSettings.rotationSpeedX = +(this.rotationSpeedX + 0.01).toFixed(2);
+        this.objects.cubeSettings.rotationSpeedX = +(this.objects.rotationSpeedX + 0.01).toFixed(2);
         break;
       case '_':
-        this.cubeSettings.rotationSpeedX = +(this.rotationSpeedX - 0.01).toFixed(2);
+        this.objects.cubeSettings.rotationSpeedX = +(this.objects.rotationSpeedX - 0.01).toFixed(2);
         break;
       case')':
-        this.cubeSettings.rotationSpeedY = +(this.rotationSpeedY + 0.01).toFixed(2);
+        this.objects.cubeSettings.rotationSpeedY = +(this.objects.rotationSpeedY + 0.01).toFixed(2);
         break;
       case'(':
-        this.cubeSettings.rotationSpeedY = +(this.rotationSpeedY - 0.01).toFixed(2);
+        this.objects.cubeSettings.rotationSpeedY = +(this.objects.rotationSpeedY - 0.01).toFixed(2);
         break;
     }
-    this.cubeParametrsService.changeSettings(this.cubeSettings);
+    this.objects.changeCubeSettings();
   }
 
   private animateCube() {
-    this.objects.cube.rotation.x += this.rotationSpeedX;
-    this.objects.cube.rotation.y += this.rotationSpeedY;
+    this.objects.animateCube(this.objects.rotationSpeedX, this.objects.rotationSpeedY);
   }
 
   private createScene() {
