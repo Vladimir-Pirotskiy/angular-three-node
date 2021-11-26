@@ -53,20 +53,7 @@ export class SceneComponent implements OnInit, AfterViewInit {
 
   @HostListener('document:keydown', ['$event'])
   handleShiftEvent(event: KeyboardEvent) {
-    switch (event.key) {
-      case '+':
-        this.objects.cubeSettings.rotationSpeedX = +(this.objects.rotationSpeedX + 0.01).toFixed(2);
-        break;
-      case '_':
-        this.objects.cubeSettings.rotationSpeedX = +(this.objects.rotationSpeedX - 0.01).toFixed(2);
-        break;
-      case')':
-        this.objects.cubeSettings.rotationSpeedY = +(this.objects.rotationSpeedY + 0.01).toFixed(2);
-        break;
-      case'(':
-        this.objects.cubeSettings.rotationSpeedY = +(this.objects.rotationSpeedY - 0.01).toFixed(2);
-        break;
-    }
+    this.objects.onKeyChangeRotationSpeedXY(event);
     this.objects.changeCubeSettings();
   }
 

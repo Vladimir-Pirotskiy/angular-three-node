@@ -9,7 +9,7 @@
     <div class="input-container">
       <mat-form-field appearance="fill">
         <mat-label>Rotation Speed-X</mat-label>
-        <input matInput type="number" [(ngModel)]="cubeSettings.rotationSpeedX" (blur)="upDate()" (keydown)="upDate()">
+        <input matInput type="number" [(ngModel)]="cubeSettings.rotationSpeedX" (blur)="upDate()" (keydown)="upDate()" title=" " matTooltip="Use SHIFT+ and SHIFT-">
         <button *ngIf="cubeSettings.rotationSpeedX" matSuffix mat-icon-button aria-label="Clear"
                 (click)="cubeSettings.rotationSpeedX=0">
           <mat-icon>close</mat-icon>
@@ -18,7 +18,7 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Rotation Speed-Y</mat-label>
-        <input matInput type="number" [(ngModel)]="cubeSettings.rotationSpeedY" (blur)="upDate()" (keydown)="upDate()">
+        <input matInput type="number" [(ngModel)]="cubeSettings.rotationSpeedY" (blur)="upDate()" (keydown)="upDate()" title=" " matTooltip="Use SHIFT) and SHIFT(">
         <button *ngIf="cubeSettings.rotationSpeedY" matSuffix mat-icon-button aria-label="Clear"
                 (click)="cubeSettings.rotationSpeedY=0">
           <mat-icon>close</mat-icon>

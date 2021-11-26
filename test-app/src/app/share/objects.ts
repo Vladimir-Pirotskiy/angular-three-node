@@ -41,5 +41,22 @@ export class Objects {
     this.cubeParametrsService.changeSettings(this.cubeSettings);
   }
 
+  public onKeyChangeRotationSpeedXY(event: KeyboardEvent) {
+    switch (event.key) {
+      case '+':
+        this.cubeSettings.rotationSpeedX = +(this.rotationSpeedX + 0.01).toFixed(2);
+        break;
+      case '_':
+        this.cubeSettings.rotationSpeedX = +(this.rotationSpeedX - 0.01).toFixed(2);
+        break;
+      case')':
+        this.cubeSettings.rotationSpeedY = +(this.rotationSpeedY + 0.01).toFixed(2);
+        break;
+      case'(':
+        this.cubeSettings.rotationSpeedY = +(this.rotationSpeedY - 0.01).toFixed(2);
+        break;
+    }
+  }
+
 
 }
