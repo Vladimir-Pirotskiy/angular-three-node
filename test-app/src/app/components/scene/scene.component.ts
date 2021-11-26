@@ -40,7 +40,7 @@ export class SceneComponent implements OnInit, AfterViewInit {
 
   private scene!: THREE.Scene;
 
-  constructor(private cubeParametrsService: CubeParametrsService, private objects: Objects) {
+  constructor(private cubeParametersService: CubeParametrsService, private objects: Objects) {
   }
 
   ngOnInit(): void {
