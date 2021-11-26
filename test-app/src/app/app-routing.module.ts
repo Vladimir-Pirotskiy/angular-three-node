@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {CubeComponent} from "./components/cube/cube.component";
+import {SceneComponent} from "./components/scene/scene.component";
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'cube',
+    redirectTo: 'scene',
     pathMatch: 'full'
   },
   {
-    path: 'cube',
-    component: CubeComponent
+    path: 'scene',
+    component: SceneComponent
   }
 ];
 

@@ -1,14 +1,15 @@
-import {AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@angular/core';
+import {CubeSettings} from "../../model/cubeSettings";
 import * as THREE from "three";
 import {CubeParametrsService} from "../../share/cube-parametrs.service";
-import {CubeSettings} from "../../model/cubeSettings";
+import {Objects} from "../../share/objects";
 
 @Component({
-  selector: 'app-cube',
-  templateUrl: './cube.component.html',
-  styleUrls: ['./cube.component.scss']
+  selector: 'app-scene',
+  templateUrl: './scene.component.html',
+  styleUrls: ['./scene.component.scss']
 })
-export class CubeComponent implements OnInit, AfterViewInit {
+export class SceneComponent implements OnInit {
 
   @ViewChild('canvas')
   private canvasRef!: ElementRef;
@@ -20,9 +21,6 @@ export class CubeComponent implements OnInit, AfterViewInit {
   @Input() public rotationSpeedY: number = 0;
 
   @Input() public size: number = 200;
-
-  @Input() public texture: string = "/assets/texture.jpg";
-
 
   //* Stage Properties
 
@@ -42,19 +40,13 @@ export class CubeComponent implements OnInit, AfterViewInit {
     return this.canvasRef.nativeElement;
   }
 
-  private loader = new THREE.TextureLoader();
-  private geometry = new THREE.BoxGeometry(1, 1, 1);
-  private material = new THREE.MeshBasicMaterial({map: this.loader.load(this.texture)});
-
-  private cube: THREE.Mesh = new THREE.Mesh(this.geometry, this.material);
-
   private renderer!: THREE.WebGLRenderer;
 
   private scene!: THREE.Scene;
 
   cubeSettings: CubeSettings = {rotationSpeedX: this.rotationSpeedX, rotationSpeedY: this.rotationSpeedY};
 
-  constructor(private cubeParametrsService: CubeParametrsService) {
+  constructor(private cubeParametrsService: CubeParametrsService, private objects: Objects) {
   }
 
   ngOnInit(): void {
@@ -90,15 +82,15 @@ export class CubeComponent implements OnInit, AfterViewInit {
   }
 
   private animateCube() {
-    this.cube.rotation.x += this.rotationSpeedX;
-    this.cube.rotation.y += this.rotationSpeedY;
+    this.objects.cube.rotation.x += this.rotationSpeedX;
+    this.objects.cube.rotation.y += this.rotationSpeedY;
   }
 
   private createScene() {
     //* Scene
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0x000000)
-    this.scene.add(this.cube);
+    this.scene.add(this.objects.cube);
     //*Camera
     let aspectRatio = this.getAspectRatio();
     this.camera = new THREE.PerspectiveCamera(
@@ -121,7 +113,7 @@ export class CubeComponent implements OnInit, AfterViewInit {
     this.renderer.setPixelRatio(devicePixelRatio);
     this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
 
-    let component: CubeComponent = this;
+    let component: SceneComponent = this;
     (function render() {
       requestAnimationFrame(render);
       component.animateCube();
