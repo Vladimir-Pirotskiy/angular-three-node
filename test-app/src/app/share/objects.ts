@@ -24,8 +24,8 @@ export class Objects {
   cubeSettings: CubeSettings = {rotationSpeedX: this.rotationSpeedX, rotationSpeedY: this.rotationSpeedY};
 
 
-  constructor(private cubeParametrsService: CubeParametrsService) {
-    this.cubeParametrsService.currentSettings.subscribe(value => {
+  constructor(private cubeParametersService: CubeParametrsService) {
+    this.cubeParametersService.currentSettings.subscribe(value => {
       this.rotationSpeedX = value.rotationSpeedX;
       this.rotationSpeedY = value.rotationSpeedY;
       this.cubeSettings = value;
@@ -38,7 +38,7 @@ export class Objects {
   }
 
   public changeCubeSettings() {
-    this.cubeParametrsService.changeSettings(this.cubeSettings);
+    this.cubeParametersService.changeSettings(this.cubeSettings);
   }
 
   public onKeyChangeRotationSpeedXY(event: KeyboardEvent) {

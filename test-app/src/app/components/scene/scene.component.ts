@@ -48,6 +48,7 @@ export class SceneComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.createScene();
+    this.createCamera();
     this.startRenderingLoop();
   }
 
@@ -66,6 +67,9 @@ export class SceneComponent implements OnInit, AfterViewInit {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0x000000)
     this.scene.add(this.objects.cube);
+  }
+
+  private createCamera() {
     //*Camera
     let aspectRatio = this.getAspectRatio();
     this.camera = new THREE.PerspectiveCamera(
